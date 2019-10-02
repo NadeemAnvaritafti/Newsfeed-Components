@@ -85,10 +85,37 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'GoT Season 8 was BAD',
+    date: 'May 12th, 2019',
+    firstParagraph: `Who are the Whitewalkers and why are they angry? `,
+
+    secondParagraph: `Jon Snow was brought back from the dead for what purpose exactly?? `,
+
+    thirdParagraph: `What if Bran was secretly connected to the Night King after he was touched?`
+  },
+  {
+    title: 'Components are fun!',
+    date: 'Oct 2nd, 2019',
+    firstParagraph: `Components are fun.  You get to manipulate the DOM and reuse code. Components are fun.  
+          You get to manipulate the DOM and reuse code. Components are fun.  
+          You get to manipulate the DOM and reuse code. Components are fun.  
+          You get to manipulate the DOM and reuse code.`,
+
+    secondParagraph: `Make a bunch of buttons woohoo.  Make a bunch of buttons woohoo.  
+          Make a bunch of buttons woohoo.  Make a bunch of buttons woohoo.  
+          Make a bunch of buttons woohoo.  Make a bunch of buttons woohoo.`,
+
+    thirdParagraph: `Third paragraphs are lame.  I only like two.
+          Third paragraphs are lame.  I only like two. Third paragraphs are lame.  I only like two.
+          Third paragraphs are lame.  I only like two. Third paragraphs are lame.  I only like two.
+          Third paragraphs are lame.  I only like two. Third paragraphs are lame.  I only like two.`
   }
 ];
 
-/* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
+/* Step 1: Create a function that creates a component. You will want your component 
+to look like the template below: 
   
   <div class="article">
     <h2>{title of the article}</h2>
@@ -101,14 +128,67 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as it's one argument, 
+  or 5 separate arguments mapping to each piece of the data object above.
 
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  Step 2: 
+  Add an event listener to the expandButton span. 
+  This event listener should toggle the class 'article-open' on the 'article' div.
 
-  Step 3: return the entire component.
+  Step 3: 
+  return the entire component.
 
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+  Step 4: 
+  Map over the data, creating a component for each oject and 
+  add each component to the DOM as children of the 'articles' div.
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+  Step 5: 
+  Add a new article to the array. Make sure it is in the same 
+  format as the others. Refresh the page to see the new article.
 
 */
+
+function articleCreator(title, date, p1, p2, p3){
+  // creating elements
+  const article = document.createElement('div');
+  const h2 = document.createElement('h2');
+  const pDate = document.createElement('p');
+  const text1 = document.createElement('p');
+  const text2 = document.createElement('p');
+  const text3 = document.createElement('p');
+  const btn = document.createElement('span');
+
+  // adding classes
+  article.classList.add('article');
+  pDate.classList.add('date');
+  btn.classList.add('expandButton');
+
+  // structuring elements
+  article.appendChild(h2);
+  article.appendChild(pDate);
+  article.appendChild(text1);
+  article.appendChild(text2);
+  article.appendChild(text3);
+  article.appendChild(btn);
+
+  // linking parameters
+  h2.textContent = title;
+  pDate.textContent = date;
+  text1.textContent = p1;
+  text2.textContent = p2;
+  text3.textContent = p3;
+  btn.textContent = "\u25bc";
+
+  btn.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+    //btn.classList.toggle('expandButton');
+  });
+
+  return article;
+}
+
+const articles = document.querySelector('.articles');
+
+data.forEach(el => {
+  articles.appendChild(articleCreator(el.title, el.date, el.firstParagraph, el.secondParagraph, el.thirdParagraph))
+});
